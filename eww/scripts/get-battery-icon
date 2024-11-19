@@ -1,0 +1,17 @@
+#!/bin/bash
+capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+status=$(cat /sys/class/power_supply/BAT0/status)
+
+if [[ "$status" == "Charging" ]]; then
+    echo ""
+elif (( capacity >= 90 )); then
+    echo ""
+elif (( capacity >= 60 )); then
+    echo ""
+elif (( capacity >= 40 )); then
+    echo ""
+elif (( capacity >= 20 )); then
+    echo ""
+else
+    echo ""
+fi

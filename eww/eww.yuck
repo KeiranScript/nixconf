@@ -1,0 +1,99 @@
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                     :y "0%"
+                     :width "100%"
+                     :height "30px"
+                     :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (bar))
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (left)
+    (center)
+    (right)))
+
+(defwidget left []
+  (box :class "left" 
+       :halign "start" 
+       :space-evenly false
+    (workspaces)))
+
+(defwidget center []
+  (box :class "center" 
+       :halign "center"
+    (box :class "time-box"
+      (label :text time))))
+
+(defwidget right []
+  (box :class "right" 
+       :halign "end" 
+       :space-evenly false
+    (metrics)
+    (volume)
+    (date-display)))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :space-evenly true
+    (for workspace in workspace_list
+      (button :class "workspace-entry ${workspace == current_workspace ? "current" : ""}"
+              :onclick "hyprctl dispatch workspace ${workspace}"
+        workspace))))
+
+(defwidget metrics []
+  (box :class "metrics" :space-evenly false
+    (metric :label "󰻠"  ; CPU icon
+            :value {round(EWW_CPU.avg, 0)}
+            :onchange "")
+    (metric :label "󰍛"  ; RAM icon
+            :value {round(EWW_RAM.used_mem_perc, 0)}
+            :onchange "")))
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwidget volume []
+  (box :class "volume"
+       :space-evenly false
+    (button :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            :class "volume-icon ${volume-muted == "true" ? "muted" : ""}"
+      {volume-muted == "true" ? "󰖁" : 
+       volume < 30 ? "󰕿" :
+       volume < 60 ? "󰖀" : "󰕾"})
+    (scale :min 0
+           :max 101
+           :value volume
+           :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")))
+
+(defwidget date-display []
+  (box :class "date-display"
+    (label :text " ${date}")))
+
+(defpoll time :interval "1s"
+  "date '+%H:%M'")
+
+(defpoll date :interval "1s"
+  "date '+%d/%m'")
+
+(defpoll volume :interval "1s"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}'")
+
+(defpoll volume-muted :interval "1s"
+  "wpctl get-mute @DEFAULT_AUDIO_SINK@ | grep -q 'true' && echo 'true' || echo 'false'")
+
+(deflisten workspace_list :initial "[1, 2, 3, 4, 5]"
+  "scripts/get-workspaces.sh")
+
+(deflisten current_workspace :initial "1"
+  "scripts/get-active-workspace.sh")

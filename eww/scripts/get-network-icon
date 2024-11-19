@@ -1,0 +1,13 @@
+#!/bin/bash
+if [[ "$(iwgetid -r)" != "" ]]; then
+    strength=$(iwconfig wlan0 | grep "Link Quality=" | awk '{print $2}' | cut -d'=' -f2 | cut -d'/' -f1)
+    if (( strength >= 70 )); then
+        echo ""
+    elif (( strength >= 30 )); then
+        echo ""
+    else
+        echo ""
+    fi
+else
+    echo ""
+fi

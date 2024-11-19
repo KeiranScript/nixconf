@@ -1,0 +1,118 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+}
+
+.bar {
+  background-color: rgba(17, 17, 27, 0.95);
+  color: #cdd6f4;
+  padding: 0 1rem;
+}
+
+.workspaces {
+  padding: 0 0.5rem;
+  
+  button {
+    padding: 0 0.5rem;
+    color: #6c7086;
+    
+    &.current {
+      color: #cdd6f4;
+    }
+    
+    &:hover {
+      color: #b4befe;
+    }
+  }
+}
+
+.time-box {
+  font-size: 14px;
+  font-weight: bold;
+  color: #b4befe;
+}
+
+.metric {
+  padding: 0 1rem;
+  
+  .label {
+    padding-right: 0.5rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+  }
+  
+  scale {
+    min-width: 70px;
+    
+    trough {
+      background-color: #313244;
+      border-radius: 2px;
+      min-height: 5px;
+      
+      highlight {
+        background-color: #b4befe;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.volume {
+  padding: 0 1rem;
+  
+  .volume-icon {
+    padding-right: 0.5rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    
+    &.muted {
+      color: #f38ba8;
+    }
+  }
+  
+  scale {
+    min-width: 70px;
+    
+    trough {
+      background-color: #313244;
+      border-radius: 2px;
+      min-height: 5px;
+      
+      highlight {
+        background-color: #a6e3a1;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.battery {
+  padding: 0 1rem;
+  
+  .battery-icon {
+    padding-right: 0.5rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    
+    &.charging {
+      color: #a6e3a1;
+    }
+  }
+}
+
+.network {
+  padding: 0 1rem;
+  
+  .network-icon {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    
+    &.connected {
+      color: #a6e3a1;
+    }
+    
+    &.disconnected {
+      color: #f38ba8;
+    }
+  }
+}

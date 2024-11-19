@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -9,28 +8,25 @@
       monitor = [
         ", preferred, auto, auto"
       ];
-
       general = {
-        gaps_in = 5;
+        gaps_in = 10;
         gaps_out = 10;
-        border_size = 2;
+        border_size = 0;
         "col.active_border" = "rgba(33ccffee)";
         "col.inactive_border" = "rgba(595959aa)";
         layout = "dwindle";
       };
-
       decoration = {
         rounding = 10;
         blur = {
           enabled = true;
           size = 3;
-          passes = 1;
+          passes = 2;
         };
         drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
       };
-
       animations = {
         enabled = true;
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -42,7 +38,6 @@
           "workspaces, 1, 6, default"
         ];
       };
-
       input = {
         kb_layout = "gb";
         follow_mouse = 1;
@@ -51,19 +46,22 @@
         };
         sensitivity = 0;
       };
-
       windowrulev2 = [];
-
       "$mod" = "SUPER";
       bind = [
-        "$mod, Return, exec, kitty"
+        "$mod, T, exec, kitty"
         "$mod, Q, killactive,"
         "$mod, M, exit,"
-        "$mod, E, exec, firefox"
-        "$mod, V, togglefloating,"
+        "$mod, F, exec, firefox"
+        "$mod SHIFT, F, togglefloating,"
         "$mod, R, exec, wofi --show drun"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
+        "ALT, Return, fullscreen,"
+
+        ", Insert, exec, hyprshot -m region -o $HOME/Pictures/Screenshots/"
+        ", Print, exec, hyprshot -m window -o $HOME/Pictures/Screenshots/"
+        ", Pause, exec, hyprshot -m output -o $HOME/Pictures/Screenshots/"
 
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
@@ -91,8 +89,16 @@
         "$mod SHIFT, 8, movetoworkspace, 8"
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
-      ];
 
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+        "$mod, equal, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+        "$mod, minus, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        "$mod, m, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ];
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
