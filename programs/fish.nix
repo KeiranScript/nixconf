@@ -51,9 +51,13 @@
     };
 
     shellAliases = {
-      ll = "ls -lah";
+      ll = "lsd -lhA";
+      la = "lsd -A";
+      ld = "lsd -d";
+      ls = "lsd";
       gs = "git status";
       gd = "git diff";
+      gfp = "git fetch && git pull";
       ff = "fastfetch";
     };
 

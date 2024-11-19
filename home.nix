@@ -25,11 +25,14 @@
       python3
       neovim
       wofi
+      bash
       mako
       eww
+      lsd
       gcc
       fzf
       fd
+      jq
     ];
   };
 

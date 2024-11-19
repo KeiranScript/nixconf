@@ -26,6 +26,11 @@
   }
 }
 
+.workspace-entry.current {
+  background-color: #4CAF50; /* Highlight color */
+  color: white;
+}
+
 .time-box {
   font-size: 14px;
   font-weight: bold;

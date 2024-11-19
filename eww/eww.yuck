@@ -40,7 +40,7 @@
        :space-evenly true
     (for workspace in workspace_list
       (button :class "workspace-entry ${workspace == current_workspace ? "current" : ""}"
-              :onclick "hyprctl dispatch workspace ${workspace}"
+              :onclick "hyprctl dispatch workspace_focus $workspace"
         workspace))))
 
 (defwidget metrics []

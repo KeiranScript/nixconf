@@ -1,2 +1,2 @@
-#!/bin/bash
-hyprctl workspaces -j | jq -c 'map(.id) | sort'
+#!/bin/sh
+hyprctl workspaces -j | jq '[.[].name]'
